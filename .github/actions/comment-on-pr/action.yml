@@ -10,13 +10,16 @@ inputs:
 runs:
     using: composite
     steps:
-        - uses: actions/github-script@v8
+        - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+          env:
+              COMMENT_MESSAGE: ${{ inputs.message }}
+              AVOID_REPOSTS_WITH: ${{ inputs.avoidRepostsWith }}
           with:
               script: |
                   const addComment = require('./.github/actions/comment-on-pr/index.js');
                   await addComment({
                       github,
                       context,
-                      message: '${{ inputs.message }}',
-                      avoidRepostsWith: '${{ inputs.avoidRepostsWith }}',
+                      message: process.env.COMMENT_MESSAGE,
+                      avoidRepostsWith: process.env.AVOID_REPOSTS_WITH,
                   });

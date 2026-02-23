@@ -6,7 +6,12 @@ import {chunk} from 'lodash';
 import {getPage} from './lib/figma';
 import {FilesId, LibraryName, PagesId} from './lib/mappings';
 
-const personalAccessToken: string = process.env.FIGMA_TOKEN!;
+const personalAccessToken = process.env.FIGMA_TOKEN;
+
+if (!personalAccessToken) {
+    console.error('Error: FIGMA_TOKEN environment variable is not set.');
+    process.exit(1);
+}
 
 const figmaClient = Client({personalAccessToken});
 
