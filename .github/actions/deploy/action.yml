@@ -20,6 +20,8 @@ runs:
         #      role-to-assume: ${{ inputs.AWS_ROLE }}
         #      aws-region: ${{ inputs.AWS_REGION }}
         - name: Push distribution code to s3 demo folder
+          env:
+                AWS_ROLE: ${{ inputs.AWS_ROLE }}
           id: s3-push
           shell: bash
           run: bash ./.github/actions/deploy/deploy.sh ${{ github.head_ref || github.ref_name }} ${{ inputs.AWS_BUCKET }}
